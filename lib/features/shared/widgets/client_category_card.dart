@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:coreafrique/core/constants/app_dimensions.dart';
+import 'package:coreafrique/core/constants/app_colors.dart';
 
 /// Reusable client category card widget
 class ClientCategoryCard extends StatelessWidget {
@@ -14,7 +15,12 @@ class ClientCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
+        boxShadow: AppColors.softShadow,
+      ),
       child: Padding(
         padding: const EdgeInsets.all(AppDimensions.paddingLG),
         child: Column(
@@ -36,7 +42,7 @@ class ClientCategoryCard extends StatelessWidget {
                       Icon(
                         Icons.check_circle_outline,
                         size: AppDimensions.iconSM,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: AppColors.primary,
                       ),
                       const SizedBox(width: AppDimensions.spacingSM),
                       Expanded(

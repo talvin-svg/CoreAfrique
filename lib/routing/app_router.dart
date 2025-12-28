@@ -33,7 +33,20 @@ final GoRouter appRouter = GoRouter(
   ],
   errorBuilder: (context, state) => Scaffold(
     body: Center(
-      child: Text('Page not found: ${state.uri}'),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '404',
+            style: Theme.of(context).textTheme.displayLarge,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Page not found: ${state.uri}',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ],
+      ),
     ),
   ),
 );

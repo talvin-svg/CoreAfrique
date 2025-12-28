@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'routing/app_router.dart';
+import 'package:coreafrique/routing/app_router.dart';
+import 'package:coreafrique/core/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Core Afrique Investments',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.lightTheme,
       routerConfig: appRouter,
     );
   }

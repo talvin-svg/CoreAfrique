@@ -1,0 +1,131 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:coreafrique/core/data/models/service.dart';
+import 'package:coreafrique/core/constants/app_dimensions.dart';
+import 'package:coreafrique/core/constants/app_colors.dart';
+import 'package:coreafrique/core/utils/responsive_extensions.dart';
+import 'package:coreafrique/features/services/view_model/services_view_model.dart';
+import 'package:coreafrique/features/services/widgets/service_card.dart';
+import 'package:coreafrique/features/shared/widgets/section_container.dart';
+import 'package:coreafrique/features/shared/widgets/section_title.dart';
+
+/// Services grid widget
+class ServicesGrid extends StatelessWidget {
+  const ServicesGrid({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => ServicesViewModel(),
+      child: Consumer<ServicesViewModel>(
+        builder: (context, viewModel, child) {
+          return SectionContainer(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SectionTitle(
+                  title: 'Our Services',
+                  subtitle: 'Comprehensive financial and business advisory solutions',
+                ),
+                const SizedBox(height: AppDimensions.spacingXL),
+                // Category filters
+                if (viewModel.categories.length > 1) ...[
+                  Wrap(
+                    spacing: AppDimensions.spacingSM,
+                    runSpacing: AppDimensions.spacingSM,
+                    children: [
+                      _buildFilterChip(
+                        context,
+                        'All Services',
+                        viewModel.selectedCategory == null,
+                        () => viewModel.setCategory(null),
+                      ),
+                      ...viewModel.categories.map((category) => _buildFilterChip(
+                            context,
+                            category,
+                            viewModel.selectedCategory == category,
+                            () => viewModel.setCategory(category),
+                          )),
+                    ],
+                  ),
+                  const SizedBox(height: AppDimensions.spacingXL),
+                ],
+                // Services grid
+                context.isNarrow
+                    ? _buildNarrowLayout(context, viewModel)
+                    : _buildWideLayout(context, viewModel),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildFilterChip(
+    BuildContext context,
+    String label,
+    bool isSelected,
+    VoidCallback onTap,
+  ) {
+    return FilterChip(
+      label: Text(label),
+      selected: isSelected,
+      onSelected: (_) => onTap(),
+      selectedColor: AppColors.primaryLight,
+      checkmarkColor: AppColors.primary,
+      labelStyle: TextStyle(
+        color: isSelected ? AppColors.primary : AppColors.textSecondary,
+        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+      ),
+    );
+  }
+
+  Widget _buildNarrowLayout(BuildContext context, ServicesViewModel viewModel) {
+    return Column(
+      children: viewModel.filteredServices.map((service) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: AppDimensions.spacingMD),
+          child: ServiceCard(
+            service: service,
+            isHovered: viewModel.isHovered(service.id),
+            onHoverChanged: () {
+              viewModel.setHovered(
+                service.id,
+                !viewModel.isHovered(service.id),
+              );
+            },
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildWideLayout(BuildContext context, ServicesViewModel viewModel) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: context.isMedium ? 2 : 3,
+        crossAxisSpacing: AppDimensions.spacingMD,
+        mainAxisSpacing: AppDimensions.spacingMD,
+        childAspectRatio: 0.85,
+      ),
+      itemCount: viewModel.filteredServices.length,
+      itemBuilder: (context, index) {
+        final service = viewModel.filteredServices[index];
+        return ServiceCard(
+          service: service,
+          isHovered: viewModel.isHovered(service.id),
+          onHoverChanged: () {
+            viewModel.setHovered(
+              service.id,
+              !viewModel.isHovered(service.id),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+

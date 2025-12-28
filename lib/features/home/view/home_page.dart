@@ -6,6 +6,7 @@ import 'package:coreafrique/features/home/widgets/clients_section.dart';
 import 'package:coreafrique/features/home/widgets/cta_section.dart';
 import 'package:coreafrique/features/shared/navbar.dart';
 import 'package:coreafrique/features/shared/footer.dart';
+import 'package:coreafrique/features/shared/widgets/certifications_section.dart';
 
 /// Home page - Landing page
 class HomePage extends StatelessWidget {
@@ -20,6 +21,7 @@ class HomePage extends StatelessWidget {
           const SliverToBoxAdapter(child: HeroSection()),
           const SliverToBoxAdapter(child: ServicesPreviewSection()),
           const SliverToBoxAdapter(child: StatisticsSection()),
+          const SliverToBoxAdapter(child: CertificationsSection()),
           const SliverToBoxAdapter(child: ClientsSection()),
           const SliverToBoxAdapter(child: CTASection()),
           const SliverToBoxAdapter(child: Footer()),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:coreafrique/core/constants/app_dimensions.dart';
+import 'package:coreafrique/core/constants/app_colors.dart';
 import 'package:coreafrique/core/data/models/service.dart';
 
 /// Reusable service preview card for home page
@@ -15,34 +16,42 @@ class ServicePreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-        child: Padding(
-          padding: const EdgeInsets.all(AppDimensions.paddingLG),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (service.icon != null)
-                Icon(
-                  _getIconData(service.icon!),
-                  size: AppDimensions.iconXL,
-                  color: Theme.of(context).colorScheme.primary,
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
+        boxShadow: AppColors.softShadow,
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
+          child: Padding(
+            padding: const EdgeInsets.all(AppDimensions.paddingLG),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (service.icon != null)
+                  Icon(
+                    _getIconData(service.icon!),
+                    size: AppDimensions.iconXL,
+                    color: AppColors.primary,
+                  ),
+                const SizedBox(height: AppDimensions.spacingMD),
+                Text(
+                  service.name,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
-              const SizedBox(height: AppDimensions.spacingMD),
-              Text(
-                service.name,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const SizedBox(height: AppDimensions.spacingSM),
-              Text(
-                service.shortDescription,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
+                const SizedBox(height: AppDimensions.spacingSM),
+                Text(
+                  service.shortDescription,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
           ),
         ),
       ),

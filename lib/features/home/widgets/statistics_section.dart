@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:coreafrique/core/data/team_data.dart';
 import 'package:coreafrique/core/data/services_data.dart';
 import 'package:coreafrique/core/constants/app_dimensions.dart';
+import 'package:coreafrique/core/constants/app_colors.dart';
 import 'package:coreafrique/core/utils/responsive_extensions.dart';
 import 'package:coreafrique/features/shared/widgets/section_container.dart';
 import 'package:coreafrique/features/shared/widgets/section_title.dart';
@@ -14,7 +15,7 @@ class StatisticsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SectionContainer(
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+      backgroundColor: AppColors.surfaceVariant,
       child: Column(
         children: [
           const SectionTitle(

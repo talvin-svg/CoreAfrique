@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:coreafrique/core/data/company_info.dart';
 import 'package:coreafrique/core/constants/app_dimensions.dart';
+import 'package:coreafrique/core/constants/app_colors.dart';
 import 'package:coreafrique/core/utils/responsive_extensions.dart';
 import 'package:coreafrique/routing/app_router.dart';
 
@@ -18,14 +19,8 @@ class Navbar extends StatelessWidget {
         vertical: AppDimensions.paddingMD,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: AppColors.surface,
+        boxShadow: AppColors.softShadow,
       ),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: AppDimensions.maxContentWidth),

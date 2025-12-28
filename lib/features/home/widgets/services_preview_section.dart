@@ -21,7 +21,7 @@ class ServicesPreviewSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionTitle(
+          const SectionTitle(
             title: 'Our Services',
             subtitle: 'Comprehensive financial and business advisory solutions',
           ),

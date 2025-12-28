@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:coreafrique/features/about/view_model/about_view_model.dart';
+import 'package:coreafrique/features/about/widgets/timeline_widget.dart';
+import 'package:coreafrique/features/about/widgets/team_card.dart';
+import 'package:coreafrique/features/about/widgets/mission_section.dart';
+import 'package:coreafrique/features/shared/navbar.dart';
+import 'package:coreafrique/features/shared/footer.dart';
 
-/// About page - Company information
+/// About page - Company information, team, and timeline
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = AboutViewModel();
+
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'About Page',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      body: CustomScrollView(
+        slivers: [
+          const SliverToBoxAdapter(child: Navbar()),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                const MissionSection(),
+                TimelineWidget(events: viewModel.timelineEvents),
+                TeamCard(teamMembers: viewModel.teamMembers),
+              ],
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => context.go('/'),
-              child: const Text('Go to Home'),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () => context.go('/services'),
-              child: const Text('Go to Services'),
-            ),
-          ],
-        ),
+          ),
+          const SliverToBoxAdapter(child: Footer()),
+        ],
       ),
     );
   }
 }
-

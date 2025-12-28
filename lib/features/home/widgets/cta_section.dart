@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:coreafrique/core/data/company_info.dart';
 import 'package:coreafrique/core/constants/app_dimensions.dart';
+import 'package:coreafrique/core/constants/app_colors.dart';
 import 'package:coreafrique/features/shared/widgets/section_container.dart';
 import 'package:coreafrique/routing/app_router.dart';
 
@@ -12,9 +13,13 @@ class CTASection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SectionContainer(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-      child: Card(
-        elevation: 8,
+      backgroundColor: AppColors.primaryLight.withOpacity(0.2),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
+          boxShadow: AppColors.mediumShadow,
+        ),
         child: Padding(
           padding: const EdgeInsets.all(AppDimensions.paddingXXL),
           child: Column(
