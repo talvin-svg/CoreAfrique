@@ -22,15 +22,16 @@ class ServicesPreviewSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(height: AppDimensions.spacingXXL),
           const SectionTitle(
             title: 'Our Services',
             subtitle: 'Comprehensive financial and business advisory solutions',
           ),
-          const SizedBox(height: AppDimensions.spacingXL),
+          const SizedBox(height: AppDimensions.spacingXXL),
           context.isNarrow
               ? _buildNarrowLayout(context, featuredServices)
               : _buildWideLayout(context, featuredServices),
-          const SizedBox(height: AppDimensions.spacingXL),
+          const SizedBox(height: AppDimensions.spacingXXL),
           Center(
             child: OutlinedButton(
               onPressed: () => context.go(AppRoutes.services),
@@ -43,6 +44,7 @@ class ServicesPreviewSection extends StatelessWidget {
               child: const Text('View All Services'),
             ),
           ),
+          const SizedBox(height: AppDimensions.spacingXXL),
         ],
       ),
     );
@@ -55,7 +57,7 @@ class ServicesPreviewSection extends StatelessWidget {
               .map(
                 (service) => Padding(
                   padding: const EdgeInsets.only(
-                    bottom: AppDimensions.spacingMD,
+                    bottom: AppDimensions.spacingLG,
                   ),
                   child: ServicePreviewCard(
                     service: service,
@@ -73,8 +75,8 @@ class ServicesPreviewSection extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: context.isMedium ? 2 : 3,
-        crossAxisSpacing: AppDimensions.spacingMD,
-        mainAxisSpacing: AppDimensions.spacingMD,
+        crossAxisSpacing: AppDimensions.spacingLG,
+        mainAxisSpacing: AppDimensions.spacingLG,
         childAspectRatio: 2.5,
       ),
       itemCount: featuredServices.length,

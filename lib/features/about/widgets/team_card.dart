@@ -100,9 +100,9 @@ class TeamCard extends StatelessWidget {
               height: 120,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.primary,
+                color: AppColors.primaryLight,
                 border: Border.all(
-                  color: AppColors.primaryDark,
+                  color: AppColors.primary,
                   width: 3,
                 ),
               ),

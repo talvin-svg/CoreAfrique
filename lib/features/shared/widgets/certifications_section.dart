@@ -21,16 +21,18 @@ class CertificationsSection extends StatelessWidget {
       backgroundColor: AppColors.primaryLight.withOpacity(0.1),
       child: Column(
         children: [
+          const SizedBox(height: AppDimensions.spacingXXL),
           const SectionTitle(
             title: 'Certifications & Credentials',
             subtitle: 'Recognized expertise and professional qualifications',
             textAlign: TextAlign.center,
             crossAxisAlignment: CrossAxisAlignment.center,
           ),
-          const SizedBox(height: AppDimensions.spacingXL),
+          const SizedBox(height: AppDimensions.spacingXXL),
           context.isNarrow
               ? _buildNarrowLayout(context, certifications)
               : _buildWideLayout(context, certifications),
+          const SizedBox(height: AppDimensions.spacingXXL),
         ],
       ),
     );
@@ -39,7 +41,7 @@ class CertificationsSection extends StatelessWidget {
   Widget _buildNarrowLayout(BuildContext context, List<Map<String, String>> certs) {
     return Column(
       children: certs.map((cert) => Padding(
-            padding: const EdgeInsets.only(bottom: AppDimensions.spacingMD),
+            padding: const EdgeInsets.only(bottom: AppDimensions.spacingLG),
             child: _buildCertCard(context, cert),
           )).toList(),
     );
@@ -50,7 +52,7 @@ class CertificationsSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: certs.map((cert) => Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDimensions.spacingSM),
+              padding: const EdgeInsets.symmetric(horizontal: AppDimensions.spacingMD),
               child: _buildCertCard(context, cert),
             ),
           )).toList(),
@@ -110,4 +112,3 @@ class CertificationsSection extends StatelessWidget {
     );
   }
 }
-

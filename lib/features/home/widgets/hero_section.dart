@@ -12,6 +12,12 @@ import 'package:go_router/go_router.dart';
 class HeroSection extends StatelessWidget {
   const HeroSection({super.key});
 
+  // Concise description for hero section
+  static const String _heroDescription = 
+      'A wholly owned Ghanaian consulting firm specializing in Private Equity, '
+      'Project Finance, and Financial Advisory services. We connect offshore capital '
+      'with local opportunities across Africa through excellence and innovation.';
+
   @override
   Widget build(BuildContext context) {
     return SectionContainer(
@@ -36,6 +42,7 @@ class HeroSection extends StatelessWidget {
           padding: context.responsivePadding,
           child: _buildTextContent(context),
         ),
+        const SizedBox(height: AppDimensions.spacingXL),
         // Image
         Container(
           height: 300,
@@ -61,7 +68,7 @@ class HeroSection extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.only(right: AppDimensions.spacingXL),
+              padding: const EdgeInsets.only(right: AppDimensions.spacingXXL),
               child: _buildTextContent(context),
             ),
           ),
@@ -111,9 +118,9 @@ class HeroSection extends StatelessWidget {
                 height: 1.1,
               ),
         ),
-        const SizedBox(height: AppDimensions.spacingXL),
+        const SizedBox(height: AppDimensions.spacingXXL),
         Text(
-          companyInfo.description,
+          _heroDescription,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: AppColors.textSecondary,
                 height: 1.7,

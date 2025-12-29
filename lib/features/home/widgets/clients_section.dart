@@ -16,14 +16,16 @@ class ClientsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: AppDimensions.spacingXXL),
           const SectionTitle(
             title: 'Our Clients',
             subtitle: 'Trusted by leading organizations across Africa',
           ),
-          const SizedBox(height: AppDimensions.spacingXL),
+          const SizedBox(height: AppDimensions.spacingXXL),
           context.isNarrow
               ? _buildNarrowLayout(context)
               : _buildWideLayout(context),
+          const SizedBox(height: AppDimensions.spacingXXL),
         ],
       ),
     );
@@ -33,7 +35,7 @@ class ClientsSection extends StatelessWidget {
     return Column(
       children: clientsData
           .map((client) => Padding(
-                padding: const EdgeInsets.only(bottom: AppDimensions.spacingMD),
+                padding: const EdgeInsets.only(bottom: AppDimensions.spacingLG),
                 child: ClientCategoryCard(
                   category: client.category,
                   examples: client.examples,
@@ -49,8 +51,8 @@ class ClientsSection extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: context.isMedium ? 2 : 3,
-        crossAxisSpacing: AppDimensions.spacingMD,
-        mainAxisSpacing: AppDimensions.spacingMD,
+        crossAxisSpacing: AppDimensions.spacingLG,
+        mainAxisSpacing: AppDimensions.spacingLG,
         childAspectRatio: 1.8,
       ),
       itemCount: clientsData.length,
@@ -61,4 +63,3 @@ class ClientsSection extends StatelessWidget {
     );
   }
 }
-

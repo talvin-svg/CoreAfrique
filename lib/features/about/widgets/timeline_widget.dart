@@ -16,11 +16,13 @@ class TimelineWidget extends StatelessWidget {
     return SectionContainer(
       backgroundColor: AppColors.surfaceVariant,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SectionTitle(
             title: 'Our Journey',
             subtitle: 'Key milestones in our company history',
+            textAlign: TextAlign.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
           ),
           const SizedBox(height: AppDimensions.spacingXL),
           ...events.asMap().entries.map((entry) {
@@ -52,7 +54,7 @@ class TimelineWidget extends StatelessWidget {
               height: 20,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.primary,
+                color: AppColors.primaryLight,
                 border: Border.all(color: AppColors.surface, width: 3),
               ),
             ),
@@ -60,7 +62,7 @@ class TimelineWidget extends StatelessWidget {
               Container(
                 width: 2,
                 height: 120,
-                color: AppColors.primary.withOpacity(0.3),
+                color: AppColors.primaryLight.withOpacity(0.4),
               ),
           ],
         ),
@@ -86,7 +88,9 @@ class TimelineWidget extends StatelessWidget {
                           vertical: AppDimensions.paddingXS,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.primaryLight,
+                          color: (event.year >= 2010 && event.year <= 2020)
+                              ? AppColors.primary
+                              : AppColors.primaryLight,
                           borderRadius: BorderRadius.circular(
                             AppDimensions.radiusSM,
                           ),
@@ -96,7 +100,9 @@ class TimelineWidget extends StatelessWidget {
                           style: Theme.of(
                             context,
                           ).textTheme.titleMedium?.copyWith(
-                            color: AppColors.primary,
+                            color: (event.year >= 2010 && event.year <= 2020)
+                                ? Colors.white
+                                : AppColors.primary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

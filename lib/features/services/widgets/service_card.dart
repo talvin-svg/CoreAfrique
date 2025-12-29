@@ -80,9 +80,15 @@ class _ServiceCardState extends State<ServiceCard>
 
   @override
   Widget build(BuildContext context) {
+    // Check if we have a long description or if short description is long enough to expand
     final hasLongDescription = widget.service.longDescription != null &&
         widget.service.longDescription!.isNotEmpty;
-    final showReadMore = hasLongDescription && !_isExpanded;
+    // Show read more if we have long description OR if short description is truncated
+    final descriptionToShow = _isExpanded && hasLongDescription
+        ? widget.service.longDescription!
+        : widget.service.shortDescription;
+    final shouldShowReadMore = hasLongDescription || 
+        (widget.service.shortDescription.length > 80 && !_isExpanded);
 
     return MouseRegion(
       onEnter: (_) => widget.onHoverChanged?.call(),
@@ -110,11 +116,10 @@ class _ServiceCardState extends State<ServiceCard>
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    if (hasLongDescription) {
-                      setState(() {
-                        _isExpanded = !_isExpanded;
-                      });
-                    }
+                    // Allow expansion even if no long description - just show more of short description
+                    setState(() {
+                      _isExpanded = !_isExpanded;
+                    });
                   },
                   borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
                   child: Padding(
@@ -152,53 +157,67 @@ class _ServiceCardState extends State<ServiceCard>
                         ),
                         const SizedBox(height: AppDimensions.spacingSM),
                         Text(
-                          _isExpanded && widget.service.longDescription != null
-                              ? widget.service.longDescription!
-                              : widget.service.shortDescription,
+                          descriptionToShow,
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                 color: AppColors.textSecondary,
                               ),
                           maxLines: _isExpanded ? null : 2,
                           overflow: _isExpanded ? null : TextOverflow.ellipsis,
                         ),
-                        if (showReadMore) ...[
+                        if (shouldShowReadMore && !_isExpanded) ...[
                           const SizedBox(height: AppDimensions.spacingXS),
-                          Row(
-                            children: [
-                              Text(
-                                'Read more',
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: AppColors.secondary,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                              const SizedBox(width: AppDimensions.spacingXS),
-                              Icon(
-                                Icons.arrow_downward,
-                                size: 14,
-                                color: AppColors.secondary,
-                              ),
-                            ],
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isExpanded = true;
+                              });
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Read more',
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                        color: AppColors.secondary,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                                const SizedBox(width: AppDimensions.spacingXS),
+                                Icon(
+                                  Icons.arrow_downward,
+                                  size: 14,
+                                  color: AppColors.secondary,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
-                        if (_isExpanded && hasLongDescription) ...[
+                        if (_isExpanded) ...[
                           const SizedBox(height: AppDimensions.spacingXS),
-                          Row(
-                            children: [
-                              Text(
-                                'Read less',
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: AppColors.secondary,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                              const SizedBox(width: AppDimensions.spacingXS),
-                              Icon(
-                                Icons.arrow_upward,
-                                size: 14,
-                                color: AppColors.secondary,
-                              ),
-                            ],
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isExpanded = false;
+                              });
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Read less',
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                        color: AppColors.secondary,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                                const SizedBox(width: AppDimensions.spacingXS),
+                                Icon(
+                                  Icons.arrow_upward,
+                                  size: 14,
+                                  color: AppColors.secondary,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                         const SizedBox(height: AppDimensions.spacingSM),

@@ -13,12 +13,14 @@ class MissionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SectionContainer(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SectionTitle(
             title: 'About Us',
             subtitle:
                 'Leading investment and financial advisory services in Africa',
+            textAlign: TextAlign.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
           ),
           const SizedBox(height: AppDimensions.spacingXXL),
           _buildSection(
@@ -54,7 +56,7 @@ class MissionSection extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.primary,
+        color: AppColors.primaryLight,
         borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
         boxShadow: AppColors.mediumShadow,
       ),
@@ -65,7 +67,7 @@ class MissionSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(AppDimensions.paddingMD),
             decoration: BoxDecoration(
-              color: AppColors.primaryDark,
+              color: AppColors.primary,
               borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
             ),
             child: Icon(
