@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-/// App-wide color palette - Finance-themed with gold primary
+/// App-wide color palette - Finance-themed with dark green primary
 class AppColors {
   AppColors._(); // Private constructor to prevent instantiation
 
-  // Primary - Gold
-  static const Color primary = Color(0xFFD4AF37); // Rich gold
-  static const Color primaryDark = Color(0xFFB8941F); // Darker gold
-  static const Color primaryLight = Color(0xFFE8D5A3); // Light gold
+  // Primary - Dark Green (professional, trustworthy)
+  static const Color primary = Color(0xFF0F5132); // Deep forest green
+  static const Color primaryDark = Color(0xFF0A3D26); // Darker green
+  static const Color primaryLight = Color(0xFF1A7A4A); // Lighter green
 
-  // Secondary - Deep Navy Blue (complements gold, professional)
-  static const Color secondary = Color(0xFF1A365D); // Deep navy
-  static const Color secondaryDark = Color(0xFF0F2439); // Darker navy
-  static const Color secondaryLight = Color(0xFF2C5282); // Lighter navy
+  // Secondary - Teal/Cyan (complements dark green, modern)
+  static const Color secondary = Color(0xFF0D9488); // Teal
+  static const Color secondaryDark = Color(0xFF0F766E); // Darker teal
+  static const Color secondaryLight = Color(0xFF14B8A6); // Lighter teal
 
   // Background - Light Gray
   static const Color background = Color(0xFFF5F5F5); // Light gray
@@ -72,4 +72,3 @@ class AppColors {
         ),
       ];
 }
-

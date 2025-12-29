@@ -32,11 +32,12 @@ class TeamCard extends StatelessWidget {
     ).toList();
 
     return SectionContainer(
+      backgroundColor: AppColors.surfaceVariant,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionTitle(
-            title: 'Our Team',
+            title: 'Our Partners',
             subtitle: 'Experienced professionals dedicated to your success',
           ),
           const SizedBox(height: AppDimensions.spacingXL),
@@ -58,17 +59,22 @@ class TeamCard extends StatelessWidget {
   }
 
   Widget _buildWideLayout(BuildContext context, List<TeamMember> members) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: context.isMedium ? 2 : 3,
-        crossAxisSpacing: AppDimensions.spacingMD,
-        mainAxisSpacing: AppDimensions.spacingMD,
-        childAspectRatio: 0.75,
-      ),
-      itemCount: members.length,
-      itemBuilder: (context, index) => _buildMemberCard(context, members[index]),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final crossAxisCount = constraints.maxWidth > 1000 ? 2 : 1;
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            crossAxisSpacing: AppDimensions.spacingLG,
+            mainAxisSpacing: AppDimensions.spacingLG,
+            childAspectRatio: crossAxisCount == 1 ? 2.5 : 1.2,
+          ),
+          itemCount: members.length,
+          itemBuilder: (context, index) => _buildMemberCard(context, members[index]),
+        );
+      },
     );
   }
 
@@ -77,11 +83,16 @@ class TeamCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
-        boxShadow: AppColors.softShadow,
+        boxShadow: AppColors.mediumShadow,
+        border: Border.all(
+          color: AppColors.primaryLight.withOpacity(0.2),
+          width: 1,
+        ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(AppDimensions.paddingLG),
-        child: Column(
+        padding: const EdgeInsets.all(AppDimensions.paddingXL),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Profile image placeholder
             Container(
@@ -89,82 +100,86 @@ class TeamCard extends StatelessWidget {
               height: 120,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.primaryLight,
+                color: AppColors.primary,
                 border: Border.all(
-                  color: AppColors.primary,
+                  color: AppColors.primaryDark,
                   width: 3,
                 ),
               ),
               child: Icon(
                 Icons.person,
                 size: 60,
-                color: AppColors.primary,
+                color: Colors.white,
               ),
             ),
-            const SizedBox(height: AppDimensions.spacingMD),
-            Text(
-              member.name,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppDimensions.spacingXS),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.paddingMD,
-                vertical: AppDimensions.paddingXS,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.primaryLight,
-                borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
-              ),
-              child: Text(
-                member.role,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(height: AppDimensions.spacingMD),
+            const SizedBox(width: AppDimensions.spacingLG),
             Expanded(
-              child: Text(
-                member.bio,
-                style: Theme.of(context).textTheme.bodySmall,
-                textAlign: TextAlign.center,
-                maxLines: 5,
-                overflow: TextOverflow.ellipsis,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    member.name,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: AppDimensions.spacingXS),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppDimensions.paddingMD,
+                      vertical: AppDimensions.paddingXS,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryLight.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
+                    ),
+                    child: Text(
+                      member.role,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(height: AppDimensions.spacingMD),
+                  Text(
+                    member.bio,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  if (member.qualifications.isNotEmpty) ...[
+                    const SizedBox(height: AppDimensions.spacingMD),
+                    Wrap(
+                      spacing: AppDimensions.spacingXS,
+                      runSpacing: AppDimensions.spacingXS,
+                      children: member.qualifications.take(3).map((qual) => Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppDimensions.paddingSM,
+                              vertical: AppDimensions.paddingXS,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.secondaryLight.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
+                            ),
+                            child: Text(
+                              qual,
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    fontSize: 10,
+                                    color: AppColors.secondary,
+                                  ),
+                            ),
+                          )).toList(),
+                    ),
+                  ],
+                ],
               ),
             ),
-            if (member.qualifications.isNotEmpty) ...[
-              const SizedBox(height: AppDimensions.spacingSM),
-              Wrap(
-                spacing: AppDimensions.spacingXS,
-                runSpacing: AppDimensions.spacingXS,
-                children: member.qualifications.take(2).map((qual) => Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppDimensions.paddingSM,
-                        vertical: AppDimensions.paddingXS,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.surfaceVariant,
-                        borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
-                      ),
-                      child: Text(
-                        qual,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 10,
-                            ),
-                      ),
-                    )).toList(),
-              ),
-            ],
           ],
         ),
       ),
     );
   }
 }
-

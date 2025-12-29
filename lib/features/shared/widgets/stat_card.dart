@@ -1,20 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:coreafrique/core/constants/app_dimensions.dart';
 import 'package:coreafrique/core/constants/app_colors.dart';
+import 'package:coreafrique/core/constants/app_dimensions.dart';
 import 'package:coreafrique/features/shared/widgets/animated_counter.dart';
+import 'package:flutter/material.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
-/// Reusable statistics card widget
+/// Reusable statistics card widget - Compact and visually interesting
 class StatCard extends StatelessWidget {
   final String value;
   final String label;
   final IconData? icon;
 
-  const StatCard({
-    super.key,
-    required this.value,
-    required this.label,
-    this.icon,
-  });
+  StatCard({super.key, required this.value, required this.label, this.icon});
+
+  final GlobalKey<AnimatedCounterState> _counterKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -22,51 +20,84 @@ class StatCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
-        boxShadow: AppColors.softShadow,
+        boxShadow: AppColors.mediumShadow,
+        border: Border.all(
+          color: AppColors.primaryLight.withOpacity(0.2),
+          width: 1,
+        ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(AppDimensions.paddingXL),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (icon != null) ...[
-              Icon(
-                icon,
-                size: AppDimensions.iconXL,
-                color: AppColors.primary,
+        padding: const EdgeInsets.all(AppDimensions.paddingLG),
+        child: VisibilityDetector(
+          key: Key('counter-detector-$value'),
+          onVisibilityChanged: (VisibilityInfo info) {
+            if (info.visibleFraction > 0.5) {
+              _counterKey.currentState?.startAnimation();
+            }
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (icon != null) ...[
+            Container(
+              padding: const EdgeInsets.all(AppDimensions.paddingMD),
+              decoration: BoxDecoration(
+                color: AppColors.secondaryLight.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
               ),
-              const SizedBox(height: AppDimensions.spacingMD),
-            ],
-            _isNumeric(value)
-                ? AnimatedCounter(
-                    targetValue: _extractNumber(value),
-                    suffix: _extractSuffix(value),
-                    textStyle: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primary,
-                        ),
-                  )
-                : Text(
-                    value,
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primary,
-                        ),
-                  ),
-            const SizedBox(height: AppDimensions.spacingXS),
-            Text(
-              label,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
+              child: Icon(
+                icon,
+                size: AppDimensions.iconLG,
+                color: AppColors.secondary,
+              ),
             ),
-          ],
+                const SizedBox(width: AppDimensions.spacingMD),
+              ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _isNumeric(value)
+                        ? AnimatedCounter(
+                          key: _counterKey,
+                          targetValue: _extractNumber(value),
+                          suffix: _extractSuffix(value),
+                          textStyle: Theme.of(
+                            context,
+                          ).textTheme.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.secondary,
+                          ),
+                        )
+                        : Text(
+                          value,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.secondary,
+                          ),
+                        ),
+                    const SizedBox(height: AppDimensions.spacingXS),
+                    Text(
+                      label,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.textSecondary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   bool _isNumeric(String str) {
-    // Remove suffix like '+' if present
     final cleaned = str.replaceAll(RegExp(r'[^0-9]'), '');
     return int.tryParse(cleaned) != null;
   }
@@ -81,4 +112,3 @@ class StatCard extends StatelessWidget {
     return match?.group(0);
   }
 }
-

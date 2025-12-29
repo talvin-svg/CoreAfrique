@@ -1,108 +1,183 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:coreafrique/core/data/company_info.dart';
-import 'package:coreafrique/core/constants/app_dimensions.dart';
 import 'package:coreafrique/core/constants/app_colors.dart';
+import 'package:coreafrique/core/constants/app_dimensions.dart';
+import 'package:coreafrique/core/constants/image_urls.dart';
+import 'package:coreafrique/core/data/company_info.dart';
 import 'package:coreafrique/core/utils/responsive_extensions.dart';
 import 'package:coreafrique/features/shared/widgets/section_container.dart';
 import 'package:coreafrique/routing/app_router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-/// Hero section widget for the landing page
+/// Hero section widget for the landing page - Side by side layout
 class HeroSection extends StatelessWidget {
   const HeroSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SectionContainer(
-      backgroundColor: AppColors.secondary,
+      padding: EdgeInsets.zero,
+      backgroundColor: AppColors.background,
       child: Container(
-        constraints: const BoxConstraints(minHeight: 500),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: AppDimensions.spacingXXL),
-            // Main headline
-            Text(
-              'Pushing forward the frontiers of',
-              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w300,
-                    letterSpacing: 1.2,
-                  ),
-              textAlign: TextAlign.center,
+        constraints: BoxConstraints(
+          minHeight: context.isNarrow ? 500 : 650,
+        ),
+        child: context.isNarrow
+            ? _buildNarrowLayout(context)
+            : _buildWideLayout(context),
+      ),
+    );
+  }
+
+  Widget _buildNarrowLayout(BuildContext context) {
+    return Column(
+      children: [
+        // Text content
+        Container(
+          padding: context.responsivePadding,
+          child: _buildTextContent(context),
+        ),
+        // Image
+        Container(
+          height: 300,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(ImageUrls.heroFinance),
+              fit: BoxFit.cover,
             ),
-            const SizedBox(height: AppDimensions.spacingMD),
-            Text(
-              'Private Equity in Africa',
-              style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: -0.5,
-                  ),
-              textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWideLayout(BuildContext context) {
+    return Padding(
+      padding: context.responsivePadding,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Text content - Left side
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.only(right: AppDimensions.spacingXL),
+              child: _buildTextContent(context),
             ),
-            const SizedBox(height: AppDimensions.spacingXL),
-            // Description
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 800),
-              child: Text(
-                companyInfo.description,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Colors.white.withOpacity(0.9),
-                      height: 1.8,
-                    ),
-                textAlign: TextAlign.center,
+          ),
+          // Image - Right side
+          Expanded(
+            flex: 1,
+            child: Container(
+              height: 550,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppDimensions.radiusXL),
+                boxShadow: AppColors.largeShadow,
+                image: DecorationImage(
+                  image: NetworkImage(ImageUrls.heroFinance),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            const SizedBox(height: AppDimensions.spacingXXL),
-            // CTA Buttons
-            Wrap(
-              spacing: AppDimensions.spacingMD,
-              runSpacing: AppDimensions.spacingMD,
-              alignment: WrapAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () => context.go(AppRoutes.services),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: AppColors.textPrimary,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppDimensions.paddingXL * 1.5,
-                      vertical: AppDimensions.paddingLG,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-                    ),
-                  ),
-                  child: const Text(
-                    'Our Services',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextContent(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'Pushing forward the frontiers of',
+          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w300,
+                letterSpacing: 1.2,
+                fontSize: 28,
+              ),
+        ),
+        const SizedBox(height: AppDimensions.spacingMD),
+        Text(
+          'Private Equity in Africa',
+          style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.bold,
+                letterSpacing: -0.5,
+                fontSize: 48,
+                height: 1.1,
+              ),
+        ),
+        const SizedBox(height: AppDimensions.spacingXL),
+        Text(
+          companyInfo.description,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: AppColors.textSecondary,
+                height: 1.7,
+                fontSize: 16,
+              ),
+        ),
+        const SizedBox(height: AppDimensions.spacingXXL),
+        Wrap(
+          spacing: AppDimensions.spacingMD,
+          runSpacing: AppDimensions.spacingMD,
+          children: [
+            ElevatedButton(
+              onPressed: () => context.go(AppRoutes.services),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingXL * 1.5,
+                  vertical: AppDimensions.paddingLG,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.radiusMD,
                   ),
                 ),
-                OutlinedButton(
-                  onPressed: () => context.go(AppRoutes.about),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    side: const BorderSide(color: Colors.white, width: 2),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppDimensions.paddingXL * 1.5,
-                      vertical: AppDimensions.paddingLG,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-                    ),
-                  ),
-                  child: const Text(
-                    'Learn More',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
+                elevation: 4,
+              ),
+              child: const Text(
+                'Our Services',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
-              ],
+              ),
             ),
-            const SizedBox(height: AppDimensions.spacingXXL),
+            OutlinedButton(
+              onPressed: () => context.go(AppRoutes.about),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: AppColors.primary,
+                side: const BorderSide(
+                  color: AppColors.primary,
+                  width: 2,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingXL * 1.5,
+                  vertical: AppDimensions.paddingLG,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.radiusMD,
+                  ),
+                ),
+              ),
+              child: const Text(
+                'Learn More',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           ],
         ),
-      ),
+      ],
     );
   }
 }

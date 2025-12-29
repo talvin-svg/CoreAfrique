@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:coreafrique/core/constants/app_colors.dart';
 
 /// Animated counter widget that counts from 0 to target value
 class AnimatedCounter extends StatefulWidget {
@@ -19,36 +18,33 @@ class AnimatedCounter extends StatefulWidget {
   });
 
   @override
-  State<AnimatedCounter> createState() => _AnimatedCounterState();
+  State<AnimatedCounter> createState() => AnimatedCounterState();
 }
 
-class _AnimatedCounterState extends State<AnimatedCounter>
+class AnimatedCounterState extends State<AnimatedCounter>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<int> _animation;
 
+  bool _hasStarted = false;
+
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: widget.duration,
-      vsync: this,
-    );
+    _controller = AnimationController(duration: widget.duration, vsync: this);
 
     _animation = IntTween(
       begin: 0,
       end: widget.targetValue,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOutCubic,
-    ));
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+  }
 
-    // Start animation after a short delay
-    Future.delayed(const Duration(milliseconds: 300), () {
-      if (mounted) {
-        _controller.forward();
-      }
-    });
+  void startAnimation() {
+    if (!_hasStarted) {
+      // Start the animation only if it hasn't run yet
+      _controller.forward();
+      _hasStarted = true;
+    }
   }
 
   @override
@@ -70,4 +66,3 @@ class _AnimatedCounterState extends State<AnimatedCounter>
     );
   }
 }
-

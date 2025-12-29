@@ -15,7 +15,7 @@ class StatisticsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SectionContainer(
-      backgroundColor: AppColors.surfaceVariant,
+      backgroundColor: AppColors.secondaryLight.withOpacity(0.1),
       child: Column(
         children: [
           const SectionTitle(
@@ -67,7 +67,7 @@ class StatisticsSection extends StatelessWidget {
             icon: Icons.people,
           ),
         ),
-        const SizedBox(width: AppDimensions.spacingMD),
+        const SizedBox(width: AppDimensions.spacingSM),
         Expanded(
           child: StatCard(
             value: '${servicesData.length}',
@@ -75,7 +75,7 @@ class StatisticsSection extends StatelessWidget {
             icon: Icons.business_center,
           ),
         ),
-        const SizedBox(width: AppDimensions.spacingMD),
+        const SizedBox(width: AppDimensions.spacingSM),
         Expanded(
           child: StatCard(
             value: '15+',

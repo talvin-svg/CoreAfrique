@@ -3,7 +3,7 @@ import 'package:coreafrique/core/data/models/service.dart';
 import 'package:coreafrique/core/constants/app_dimensions.dart';
 import 'package:coreafrique/core/constants/app_colors.dart';
 
-/// Service card widget with hover effects
+/// Service card widget with expandable read more functionality
 class ServiceCard extends StatefulWidget {
   final Service service;
   final bool isHovered;
@@ -24,7 +24,7 @@ class _ServiceCardState extends State<ServiceCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
-  late Animation<double> _elevationAnimation;
+  bool _isExpanded = false;
 
   @override
   void initState() {
@@ -34,9 +34,6 @@ class _ServiceCardState extends State<ServiceCard>
       vsync: this,
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 1.02).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-    _elevationAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
   }
@@ -83,6 +80,10 @@ class _ServiceCardState extends State<ServiceCard>
 
   @override
   Widget build(BuildContext context) {
+    final hasLongDescription = widget.service.longDescription != null &&
+        widget.service.longDescription!.isNotEmpty;
+    final showReadMore = hasLongDescription && !_isExpanded;
+
     return MouseRegion(
       onEnter: (_) => widget.onHoverChanged?.call(),
       onExit: (_) => widget.onHoverChanged?.call(),
@@ -95,62 +96,137 @@ class _ServiceCardState extends State<ServiceCard>
               decoration: BoxDecoration(
                 color: AppColors.surface,
                 borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
-                boxShadow: _elevationAnimation.value > 0.5
+                boxShadow: widget.isHovered
                     ? AppColors.mediumShadow
                     : AppColors.softShadow,
+                border: Border.all(
+                  color: widget.isHovered
+                      ? AppColors.primary
+                      : AppColors.primaryLight.withOpacity(0.2),
+                  width: widget.isHovered ? 2 : 1,
+                ),
               ),
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    // TODO: Show service details
+                    if (hasLongDescription) {
+                      setState(() {
+                        _isExpanded = !_isExpanded;
+                      });
+                    }
                   },
                   borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
                   child: Padding(
                     padding: const EdgeInsets.all(AppDimensions.paddingLG),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(AppDimensions.paddingMD),
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryLight,
-                            borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-                          ),
-                          child: Icon(
-                            _getIconData(widget.service.icon),
-                            size: AppDimensions.iconXL,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                        const SizedBox(height: AppDimensions.spacingMD),
-                        Text(
-                          widget.service.name,
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(AppDimensions.paddingMD),
+                              decoration: BoxDecoration(
+                                color: AppColors.secondaryLight.withOpacity(0.15),
+                                borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
                               ),
+                              child: Icon(
+                                _getIconData(widget.service.icon),
+                                size: AppDimensions.iconLG,
+                                color: AppColors.secondary,
+                              ),
+                            ),
+                            const SizedBox(width: AppDimensions.spacingMD),
+                            Expanded(
+                              child: Text(
+                                widget.service.name,
+                                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: AppDimensions.spacingSM),
                         Text(
-                          widget.service.shortDescription,
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          _isExpanded && widget.service.longDescription != null
+                              ? widget.service.longDescription!
+                              : widget.service.shortDescription,
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: AppColors.textSecondary,
+                              ),
+                          maxLines: _isExpanded ? null : 2,
+                          overflow: _isExpanded ? null : TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: AppDimensions.spacingMD),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: AppDimensions.paddingSM,
-                            vertical: AppDimensions.paddingXS,
+                        if (showReadMore) ...[
+                          const SizedBox(height: AppDimensions.spacingXS),
+                          Row(
+                            children: [
+                              Text(
+                                'Read more',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: AppColors.secondary,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
+                              const SizedBox(width: AppDimensions.spacingXS),
+                              Icon(
+                                Icons.arrow_downward,
+                                size: 14,
+                                color: AppColors.secondary,
+                              ),
+                            ],
                           ),
-                          decoration: BoxDecoration(
-                            color: AppColors.surfaceVariant,
-                            borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
+                        ],
+                        if (_isExpanded && hasLongDescription) ...[
+                          const SizedBox(height: AppDimensions.spacingXS),
+                          Row(
+                            children: [
+                              Text(
+                                'Read less',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: AppColors.secondary,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
+                              const SizedBox(width: AppDimensions.spacingXS),
+                              Icon(
+                                Icons.arrow_upward,
+                                size: 14,
+                                color: AppColors.secondary,
+                              ),
+                            ],
                           ),
-                          child: Text(
-                            widget.service.category,
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  fontSize: 11,
-                                ),
-                          ),
+                        ],
+                        const SizedBox(height: AppDimensions.spacingSM),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: AppDimensions.paddingSM,
+                                vertical: AppDimensions.paddingXS,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.surfaceVariant,
+                                borderRadius: BorderRadius.circular(AppDimensions.radiusSM),
+                              ),
+                              child: Text(
+                                widget.service.category.split(' ').first,
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      fontSize: 10,
+                                    ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward,
+                              size: 16,
+                              color: AppColors.secondary,
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -164,4 +240,3 @@ class _ServiceCardState extends State<ServiceCard>
     );
   }
 }
-

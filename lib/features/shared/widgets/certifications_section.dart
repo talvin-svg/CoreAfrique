@@ -18,7 +18,7 @@ class CertificationsSection extends StatelessWidget {
     ];
 
     return SectionContainer(
-      backgroundColor: AppColors.surfaceVariant,
+      backgroundColor: AppColors.primaryLight.withOpacity(0.1),
       child: Column(
         children: [
           const SectionTitle(
@@ -62,37 +62,48 @@ class CertificationsSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
-        boxShadow: AppColors.softShadow,
+        boxShadow: AppColors.mediumShadow,
+        border: Border.all(
+          color: AppColors.primaryLight.withOpacity(0.2),
+          width: 1,
+        ),
       ),
-      padding: const EdgeInsets.all(AppDimensions.paddingXL),
-      child: Column(
+      padding: const EdgeInsets.all(AppDimensions.paddingLG),
+      child: Row(
         children: [
           Container(
-            width: 80,
-            height: 80,
+            padding: const EdgeInsets.all(AppDimensions.paddingMD),
             decoration: BoxDecoration(
-              color: AppColors.primaryLight,
-              shape: BoxShape.circle,
+              color: AppColors.secondaryLight.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
             ),
             child: Icon(
               Icons.verified,
-              size: 40,
-              color: AppColors.primary,
+              size: AppDimensions.iconLG,
+              color: AppColors.secondary,
             ),
           ),
-          const SizedBox(height: AppDimensions.spacingMD),
-          Text(
-            cert['title']!,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
+          const SizedBox(width: AppDimensions.spacingMD),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  cert['title']!,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppDimensions.spacingXS),
-          Text(
-            cert['description']!,
-            style: Theme.of(context).textTheme.bodySmall,
-            textAlign: TextAlign.center,
+                const SizedBox(height: AppDimensions.spacingXS),
+                Text(
+                  cert['description']!,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

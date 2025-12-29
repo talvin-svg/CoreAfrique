@@ -21,11 +21,13 @@ class ServicesGrid extends StatelessWidget {
         builder: (context, viewModel, child) {
           return SectionContainer(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SectionTitle(
                   title: 'Our Services',
                   subtitle: 'Comprehensive financial and business advisory solutions',
+                  textAlign: TextAlign.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                 ),
                 const SizedBox(height: AppDimensions.spacingXL),
                 // Category filters
@@ -33,6 +35,7 @@ class ServicesGrid extends StatelessWidget {
                   Wrap(
                     spacing: AppDimensions.spacingSM,
                     runSpacing: AppDimensions.spacingSM,
+                    alignment: WrapAlignment.center,
                     children: [
                       _buildFilterChip(
                         context,
@@ -72,7 +75,7 @@ class ServicesGrid extends StatelessWidget {
       label: Text(label),
       selected: isSelected,
       onSelected: (_) => onTap(),
-      selectedColor: AppColors.primaryLight,
+      selectedColor: AppColors.primaryLight.withOpacity(0.3),
       checkmarkColor: AppColors.primary,
       labelStyle: TextStyle(
         color: isSelected ? AppColors.primary : AppColors.textSecondary,
@@ -102,25 +105,35 @@ class ServicesGrid extends StatelessWidget {
   }
 
   Widget _buildWideLayout(BuildContext context, ServicesViewModel viewModel) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: context.isMedium ? 2 : 3,
-        crossAxisSpacing: AppDimensions.spacingMD,
-        mainAxisSpacing: AppDimensions.spacingMD,
-        childAspectRatio: 0.85,
-      ),
-      itemCount: viewModel.filteredServices.length,
-      itemBuilder: (context, index) {
-        final service = viewModel.filteredServices[index];
-        return ServiceCard(
-          service: service,
-          isHovered: viewModel.isHovered(service.id),
-          onHoverChanged: () {
-            viewModel.setHovered(
-              service.id,
-              !viewModel.isHovered(service.id),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final crossAxisCount = constraints.maxWidth > 1200
+            ? 3
+            : constraints.maxWidth > 800
+                ? 2
+                : 1;
+        
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            crossAxisSpacing: AppDimensions.spacingMD,
+            mainAxisSpacing: AppDimensions.spacingMD,
+            childAspectRatio: crossAxisCount == 1 ? 3.5 : 2.5,
+          ),
+          itemCount: viewModel.filteredServices.length,
+          itemBuilder: (context, index) {
+            final service = viewModel.filteredServices[index];
+            return ServiceCard(
+              service: service,
+              isHovered: viewModel.isHovered(service.id),
+              onHoverChanged: () {
+                viewModel.setHovered(
+                  service.id,
+                  !viewModel.isHovered(service.id),
+                );
+              },
             );
           },
         );
@@ -128,4 +141,3 @@ class ServicesGrid extends StatelessWidget {
     );
   }
 }
-

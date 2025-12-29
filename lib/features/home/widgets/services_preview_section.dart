@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:coreafrique/core/data/services_data.dart';
 import 'package:coreafrique/core/constants/app_dimensions.dart';
+import 'package:coreafrique/core/data/services_data.dart';
 import 'package:coreafrique/core/utils/responsive_extensions.dart';
+import 'package:coreafrique/features/home/widgets/outlined_buttons.dart';
 import 'package:coreafrique/features/shared/widgets/section_container.dart';
 import 'package:coreafrique/features/shared/widgets/section_title.dart';
 import 'package:coreafrique/features/shared/widgets/service_preview_card.dart';
 import 'package:coreafrique/routing/app_router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /// Services preview section for home page
 class ServicesPreviewSection extends StatelessWidget {
@@ -19,7 +20,7 @@ class ServicesPreviewSection extends StatelessWidget {
 
     return SectionContainer(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SectionTitle(
             title: 'Our Services',
@@ -49,15 +50,20 @@ class ServicesPreviewSection extends StatelessWidget {
 
   Widget _buildNarrowLayout(BuildContext context, List featuredServices) {
     return Column(
-      children: featuredServices
-          .map((service) => Padding(
-                padding: const EdgeInsets.only(bottom: AppDimensions.spacingMD),
-                child: ServicePreviewCard(
-                  service: service,
-                  onTap: () => context.go(AppRoutes.services),
+      children:
+          featuredServices
+              .map(
+                (service) => Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: AppDimensions.spacingMD,
+                  ),
+                  child: ServicePreviewCard(
+                    service: service,
+                    onTap: () => context.go(AppRoutes.services),
+                  ),
                 ),
-              ))
-          .toList(),
+              )
+              .toList(),
     );
   }
 
@@ -69,14 +75,14 @@ class ServicesPreviewSection extends StatelessWidget {
         crossAxisCount: context.isMedium ? 2 : 3,
         crossAxisSpacing: AppDimensions.spacingMD,
         mainAxisSpacing: AppDimensions.spacingMD,
-        childAspectRatio: 1.1,
+        childAspectRatio: 2.5,
       ),
       itemCount: featuredServices.length,
-      itemBuilder: (context, index) => ServicePreviewCard(
-        service: featuredServices[index],
-        onTap: () => context.go(AppRoutes.services),
-      ),
+      itemBuilder:
+          (context, index) => ServicePreviewCard(
+            service: featuredServices[index],
+            onTap: () => context.go(AppRoutes.services),
+          ),
     );
   }
 }
-

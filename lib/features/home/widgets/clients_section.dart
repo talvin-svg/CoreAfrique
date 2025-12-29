@@ -51,7 +51,7 @@ class ClientsSection extends StatelessWidget {
         crossAxisCount: context.isMedium ? 2 : 3,
         crossAxisSpacing: AppDimensions.spacingMD,
         mainAxisSpacing: AppDimensions.spacingMD,
-        childAspectRatio: 1.2,
+        childAspectRatio: 1.8,
       ),
       itemCount: clientsData.length,
       itemBuilder: (context, index) => ClientCategoryCard(

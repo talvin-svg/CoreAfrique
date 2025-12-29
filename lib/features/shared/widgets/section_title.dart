@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:coreafrique/core/constants/app_colors.dart';
 import 'package:coreafrique/core/constants/app_dimensions.dart';
+import 'package:flutter/material.dart';
 
 /// Reusable section title widget
 class SectionTitle extends StatelessWidget {
@@ -19,13 +20,14 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
+      crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+          ),
           textAlign: textAlign,
         ),
         if (subtitle != null) ...[
@@ -33,8 +35,8 @@ class SectionTitle extends StatelessWidget {
           Text(
             subtitle!,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                ),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            ),
             textAlign: textAlign,
           ),
         ],
@@ -42,4 +44,3 @@ class SectionTitle extends StatelessWidget {
     );
   }
 }
-

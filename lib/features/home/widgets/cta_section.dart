@@ -47,6 +47,8 @@ class CTASection extends StatelessWidget {
                       // For now, just show contact info
                     },
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(
                         horizontal: AppDimensions.paddingXL,
                         vertical: AppDimensions.paddingMD,
