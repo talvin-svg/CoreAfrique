@@ -98,7 +98,7 @@ class AppTheme {
       ),
 
       // Card Theme - Soft shadows, white space
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surface,
         elevation: 0,
         shape: RoundedRectangleBorder(
