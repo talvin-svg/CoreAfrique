@@ -56,9 +56,13 @@ class MissionSection extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.primaryLight,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
         boxShadow: AppColors.mediumShadow,
+        border: Border.all(
+          color: AppColors.primary.withOpacity(0.2),
+          width: 1,
+        ),
       ),
       padding: const EdgeInsets.all(AppDimensions.paddingXL),
       child: Row(
@@ -67,13 +71,13 @@ class MissionSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(AppDimensions.paddingMD),
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              color: AppColors.primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
             ),
             child: Icon(
               icon,
               size: AppDimensions.iconXL,
-              color: Colors.white,
+              color: AppColors.primary,
             ),
           ),
           const SizedBox(width: AppDimensions.spacingLG),
@@ -85,14 +89,15 @@ class MissionSection extends StatelessWidget {
                   title,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: AppColors.primary,
                   ),
                 ),
                 const SizedBox(height: AppDimensions.spacingMD),
                 Text(
                   content,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Colors.white.withOpacity(0.95),
+                    color: AppColors.textSecondary,
+                    height: 1.6,
                   ),
                 ),
               ],

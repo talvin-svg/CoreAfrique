@@ -17,9 +17,7 @@ class StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        minHeight: 140,
-      ),
+      constraints: const BoxConstraints(minHeight: 140),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppDimensions.radiusLG),
@@ -43,18 +41,18 @@ class StatCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (icon != null) ...[
-            Container(
-              padding: const EdgeInsets.all(AppDimensions.paddingMD),
-              decoration: BoxDecoration(
-                color: AppColors.secondaryLight.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
-              ),
-              child: Icon(
-                icon,
-                size: AppDimensions.iconLG,
-                color: AppColors.secondary,
-              ),
-            ),
+                Container(
+                  padding: const EdgeInsets.all(AppDimensions.paddingMD),
+                  decoration: BoxDecoration(
+                    color: AppColors.secondaryLight.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
+                  ),
+                  child: Icon(
+                    icon,
+                    size: AppDimensions.iconLG,
+                    color: AppColors.secondary,
+                  ),
+                ),
                 const SizedBox(width: AppDimensions.spacingMD),
               ],
               Flexible(
@@ -79,7 +77,7 @@ class StatCard extends StatelessWidget {
                           value,
                           style: Theme.of(
                             context,
-                          ).textTheme.headlineMedium?.copyWith(
+                          ).textTheme.headlineSmall?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: AppColors.secondary,
                           ),
