@@ -33,21 +33,35 @@ class Navbar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          companyInfo.name,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+        Flexible(
+          child: Text(
+            'CAI',
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
         ),
         // Show navigation items in a row for narrow screens
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildNavItem(context, 'Home', AppRoutes.home),
-            const SizedBox(width: AppDimensions.spacingSM),
-            _buildNavItem(context, 'About', AppRoutes.about),
-            const SizedBox(width: AppDimensions.spacingSM),
-            _buildNavItem(context, 'Services', AppRoutes.services),
+        PopupMenuButton<String>(
+          icon: const Icon(Icons.menu),
+          onSelected: (route) => context.go(route),
+          itemBuilder: (context) => [
+            const PopupMenuItem(
+              value: AppRoutes.home,
+              child: Text('Home'),
+            ),
+            const PopupMenuItem(
+              value: AppRoutes.about,
+              child: Text('About'),
+            ),
+            const PopupMenuItem(
+              value: AppRoutes.investmentAdvisory,
+              child: Text('Investment Advisory'),
+            ),
+            const PopupMenuItem(
+              value: AppRoutes.blockchainEducation,
+              child: Text('Blockchain Education'),
+            ),
           ],
         ),
       ],
@@ -70,7 +84,9 @@ class Navbar extends StatelessWidget {
             const SizedBox(width: AppDimensions.spacingMD),
             _buildNavItem(context, 'About', AppRoutes.about),
             const SizedBox(width: AppDimensions.spacingMD),
-            _buildNavItem(context, 'Services', AppRoutes.services),
+            _buildNavItem(context, 'Investment Advisory', AppRoutes.investmentAdvisory),
+            const SizedBox(width: AppDimensions.spacingMD),
+            _buildNavItem(context, 'Blockchain Education', AppRoutes.blockchainEducation),
           ],
         ),
       ],
@@ -78,7 +94,8 @@ class Navbar extends StatelessWidget {
   }
 
   Widget _buildNavItem(BuildContext context, String label, String route) {
-    final isActive = GoRouterState.of(context).uri.path == route;
+    final currentPath = GoRouterState.of(context).uri.path;
+    final isActive = currentPath == route || currentPath.startsWith(route);
     return TextButton(
       onPressed: () => context.go(route),
       style: TextButton.styleFrom(

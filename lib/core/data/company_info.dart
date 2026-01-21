@@ -1,36 +1,23 @@
 import 'package:coreafrique/core/data/models/company_info.dart';
 
-/// Core Afrique Investments Limited company information
+/// Core Afrique Investment Ltd company information
 final CompanyInfo companyInfo = CompanyInfo(
-  name: 'Core Afrique Investments Limited',
-  tagline: 'Pushing forward the frontiers of Private Equity in Africa',
+  name: 'Core Afrique Investment Ltd',
+  tagline: 'Bridging knowledge, capital, and opportunity for Africa\'s digital future',
   description: '''
-Core Afrique Investments Ltd. was established to help push forward the frontiers 
-of the Private Equity Industry in Africa through the provision of tailored 
-Investment and Financial Advisory services to the providers of offshore capital 
-to the continent. Though our initial focus and strategy is to promote investments 
-in Ghana, we are able to extend our reach to other parts of Africa through 
-affiliated organizations in other countries.
+Core Afrique Investment Ltd (CAI) is a Ghana-based investment and advisory firm committed to building future-ready enterprises and informed markets.
 
-Core Afrique Investments Ltd. is a wholly owned Ghanaian consulting firm 
-specializing in generating Deal Flows for Private Equities, structuring and 
-executing Project Finance deals, developing Feasibility studies & Business plans, 
-securing funding and offering financial advisory services for local organizations 
-and project promoters.
+We combine strategic advisory, investment structuring, and capacity building to support businesses, institutions, and individuals navigating Africa's rapidly evolving digital and financial landscape.
 
-Our service delivery draws on experienced and highly qualified and reputable 
-professionals from various fields and backgrounds.
+CAI is uniquely positioned to operate within Ghana's Virtual Asset Service Provider (VASP) regulatory framework, ensuring our services align with national policy, compliance, and public interest objectives.
+
+Core Afrique Investment Ltd is a Ghanaian boutique investment and advisory firm focused on unlocking value across emerging technologies, digital assets, and frontier markets. With deep expertise in Blockchain, virtual assets, and capital formation, CAI operates at the intersection of innovation, regulation, and sustainable economic growth in Africa.
 ''',
   mission: '''
-We recognize that modern business needs for investment and Financial advisory 
-services is growing in Ghana, therefore, the need to create a reputable 
-organization with the requisite consultants to provide these services to 
-potential clients.
+Building future-ready enterprises and informed markets by combining strategic advisory, investment structuring, and capacity building to support businesses, institutions, and individuals navigating Africa's rapidly evolving digital and financial landscape.
 ''',
   vision: '''
-To be the leading Investment and Financial Advisory firm in Africa, 
-connecting offshore capital with local opportunities through excellence, 
-integrity, and innovation.
+Building Africa's Digital Asset Future—Responsibly. To be the trusted bridge between innovation and regulation, supporting Africa's transition into a regulated digital economy through investment advisory and Blockchain education aligned with Ghana's regulatory framework.
 ''',
   contactInfo: {
     'address': 'No. 1 Fourth Nii Kwaofio Link, Baatsonaa, P.O. Box CT 6242, Cantonments, Accra, Ghana',
@@ -49,11 +36,11 @@ integrity, and innovation.
   establishmentYear: 'Established to serve the growing investment needs in Ghana',
   location: 'Accra, Ghana',
   keyDifferentiators: [
-    'Experienced team with international qualifications (CFA, MBA)',
-    'Proven track record with major international organizations',
-    'Deep understanding of African markets, especially Ghana',
-    'Comprehensive range of financial advisory services',
-    'Strong network of affiliated organizations across Africa',
+    'Regulatory-Aware: Built around Ghana\'s VASP framework',
+    'Deep Expertise: Over 8 years of hands-on Blockchain experience',
+    'Local Insight, Global Standards: African markets, international best practices',
+    'Trusted Knowledge Partner: Active contributor to national digital asset literacy',
+    'NaVALI-Aligned: Supporting Ghana\'s National Virtual Assets Literacy Initiative',
     'Wholly owned Ghanaian firm with local expertise',
   ],
 );

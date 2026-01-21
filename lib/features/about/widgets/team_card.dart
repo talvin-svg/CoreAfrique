@@ -34,11 +34,13 @@ class TeamCard extends StatelessWidget {
     return SectionContainer(
       backgroundColor: AppColors.surfaceVariant,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SectionTitle(
             title: 'Our Partners',
             subtitle: 'Experienced professionals dedicated to your success',
+            textAlign: TextAlign.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
           ),
           const SizedBox(height: AppDimensions.spacingXL),
           context.isNarrow

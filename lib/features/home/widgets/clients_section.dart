@@ -14,12 +14,14 @@ class ClientsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SectionContainer(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: AppDimensions.spacingXXL),
           const SectionTitle(
             title: 'Our Clients',
             subtitle: 'Trusted by leading organizations across Africa',
+            textAlign: TextAlign.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
           ),
           const SizedBox(height: AppDimensions.spacingXXL),
           context.isNarrow

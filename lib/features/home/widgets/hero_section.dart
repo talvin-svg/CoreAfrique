@@ -14,9 +14,11 @@ class HeroSection extends StatelessWidget {
 
   // Concise description for hero section
   static const String _heroDescription = 
-      'A wholly owned Ghanaian consulting firm specializing in Private Equity, '
-      'Project Finance, and Financial Advisory services. We connect offshore capital '
-      'with local opportunities across Africa through excellence and innovation.';
+      'Core Afrique Investment Ltd is a Ghanaian boutique investment and advisory firm '
+      'focused on unlocking value across emerging technologies, digital assets, and '
+      'frontier markets. With deep expertise in Blockchain, virtual assets, and capital '
+      'formation, CAI operates at the intersection of innovation, regulation, and sustainable '
+      'economic growth in Africa.';
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +101,7 @@ class HeroSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Pushing forward the frontiers of',
+          'Bridging knowledge, capital, and opportunity for',
           style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                 color: AppColors.textPrimary,
                 fontWeight: FontWeight.w300,
@@ -109,7 +111,7 @@ class HeroSection extends StatelessWidget {
         ),
         const SizedBox(height: AppDimensions.spacingMD),
         Text(
-          'Private Equity in Africa',
+          'Africa\'s Digital Future',
           style: Theme.of(context).textTheme.displayLarge?.copyWith(
                 color: AppColors.primary,
                 fontWeight: FontWeight.bold,
@@ -133,7 +135,7 @@ class HeroSection extends StatelessWidget {
           runSpacing: AppDimensions.spacingMD,
           children: [
             ElevatedButton(
-              onPressed: () => context.go(AppRoutes.services),
+              onPressed: () => context.go(AppRoutes.investmentAdvisory),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
@@ -149,7 +151,31 @@ class HeroSection extends StatelessWidget {
                 elevation: 4,
               ),
               child: const Text(
-                'Our Services',
+                'Investment Advisory',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => context.go(AppRoutes.blockchainEducation),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.secondary,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingXL * 1.5,
+                  vertical: AppDimensions.paddingLG,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.radiusMD,
+                  ),
+                ),
+                elevation: 4,
+              ),
+              child: const Text(
+                'Blockchain Education',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -175,7 +201,7 @@ class HeroSection extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                'Learn More',
+                'Who We Are',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,

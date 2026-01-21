@@ -28,7 +28,7 @@ class CTASection extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Ready to Get Started?',
+                    'Building Africa\'s Digital Asset Future—Responsibly',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -36,7 +36,7 @@ class CTASection extends StatelessWidget {
                   ),
                   const SizedBox(height: AppDimensions.spacingLG),
                   Text(
-                    'Let\'s build something amazing together. Contact us to discuss your investment and financial advisory needs.',
+                    'Whether you are seeking strategic advisory, investment insight, or Blockchain education aligned with Ghana\'s regulatory framework, CAI is your trusted partner.',
                     style: Theme.of(context).textTheme.bodyLarge,
                     textAlign: TextAlign.center,
                   ),

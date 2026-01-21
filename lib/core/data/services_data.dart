@@ -1,113 +1,75 @@
 import 'package:coreafrique/core/data/models/service.dart';
 
-/// Static list of services offered by Core Afrique Investments Limited
-final List<Service> servicesData = [
-  // Financial Advisory Services
+/// Static list of services offered by Core Afrique Investment Ltd
+/// Two core service lines: Investment Advisory and Blockchain Education
+
+// Investment & Strategic Advisory Services
+final List<Service> investmentAdvisoryServices = [
   Service(
-    id: '1',
-    name: 'Mergers and Acquisitions',
-    shortDescription: 'Strategic M&A advisory services for growth and survival',
-    category: 'Financial Advisory Services',
-    icon: 'business',
-  ),
-  Service(
-    id: '2',
-    name: 'Project Finance and PPP',
-    shortDescription: 'Structuring and executing Project Finance deals and Public Private Partnerships',
-    category: 'Financial Advisory Services',
+    id: 'inv-1',
+    name: 'Investment Readiness & Capital Structuring',
+    shortDescription: 'Business model refinement, pitch deck development, financial modeling, and investor engagement strategy',
+    category: 'Investment Advisory',
     icon: 'account_balance',
   ),
   Service(
-    id: '3',
-    name: 'Venture Capital Deal Flows',
-    shortDescription: 'Generating deal flows for Venture Capital investments',
-    category: 'Financial Advisory Services',
+    id: 'inv-2',
+    name: 'Blockchain & Digital Asset Advisory',
+    shortDescription: 'Blockchain use-case assessment, tokenization strategy, Web3 business models, and compliance considerations',
+    category: 'Investment Advisory',
+    icon: 'currency_bitcoin',
+  ),
+  Service(
+    id: 'inv-3',
+    name: 'Market Entry & Growth Strategy',
+    shortDescription: 'Ghana and Africa-focused market intelligence, regulatory landscape analysis, and strategic partnerships',
+    category: 'Investment Advisory',
     icon: 'trending_up',
   ),
   Service(
-    id: '4',
-    name: 'Private Equity Deals',
-    shortDescription: 'Generating Deal Flows for Private Equities',
-    category: 'Financial Advisory Services',
-    icon: 'show_chart',
-  ),
-  Service(
-    id: '5',
-    name: 'Due Diligence',
-    shortDescription: 'Due Diligence of companies and projects',
-    category: 'Financial Advisory Services',
-    icon: 'search',
-  ),
-  Service(
-    id: '6',
-    name: 'Information Memoranda',
-    shortDescription: 'Preparation of Information Memoranda for investors',
-    category: 'Financial Advisory Services',
-    icon: 'description',
-  ),
-  Service(
-    id: '7',
-    name: 'Transaction Advisory',
-    shortDescription: 'Comprehensive transaction advisory services',
-    category: 'Financial Advisory Services',
-    icon: 'handshake',
-  ),
-  Service(
-    id: '8',
-    name: 'Financial Modeling',
-    shortDescription: 'Financial Modeling and Investment Valuations',
-    category: 'Financial Advisory Services',
+    id: 'inv-4',
+    name: 'Financial Modeling & Valuation',
+    shortDescription: 'Investment valuations, financial projections, and due diligence for digital economy projects',
+    category: 'Investment Advisory',
     icon: 'calculate',
   ),
+];
+
+// Blockchain Education & Advocacy Services (VASP-Aligned)
+final List<Service> blockchainEducationServices = [
   Service(
-    id: '9',
-    name: 'Investment and Financial Valuation',
-    shortDescription: 'Investment and Financial valuation services',
-    category: 'Financial Advisory Services',
-    icon: 'assessment',
+    id: 'edu-1',
+    name: 'Blockchain & Digital Assets Courses',
+    shortDescription: 'Structured courses for beginners, professionals, entrepreneurs, and students on Blockchain fundamentals and Web3',
+    category: 'Blockchain Education',
+    icon: 'school',
   ),
   Service(
-    id: '10',
-    name: 'Debt Financing Arrangement',
-    shortDescription: 'Arranger or Co-Arranger for Debt Financing of Local Companies',
-    category: 'Financial Advisory Services',
-    icon: 'account_balance_wallet',
+    id: 'edu-2',
+    name: 'Corporate & Institutional Training',
+    shortDescription: 'Customized workshops for financial institutions, corporates, government agencies, and NGOs',
+    category: 'Blockchain Education',
+    icon: 'business_center',
   ),
   Service(
-    id: '11',
-    name: 'Portfolio Investment Brokering',
-    shortDescription: 'Brokering for Portfolio Investment in Locally listed companies',
-    category: 'Financial Advisory Services',
-    icon: 'pie_chart',
-  ),
-  // Business Advisory Services
-  Service(
-    id: '12',
-    name: 'Feasibility Studies and Business Plans',
-    shortDescription: 'Development of Project feasibility studies and Business plans',
-    category: 'Business Advisory Services',
-    icon: 'assignment',
+    id: 'edu-3',
+    name: 'Public Advocacy & Ecosystem Engagement',
+    shortDescription: 'Public seminars, webinars, community education, and policy-aligned thought leadership',
+    category: 'Blockchain Education',
+    icon: 'campaign',
   ),
   Service(
-    id: '13',
-    name: 'Strategy and Management Consulting',
-    shortDescription: 'Strategy formulation and management consulting services',
-    category: 'Business Advisory Services',
-    icon: 'lightbulb',
+    id: 'edu-4',
+    name: 'VASP Compliance Education',
+    shortDescription: 'Training for VASP license holders on Ghana\'s regulatory framework and compliance requirements',
+    category: 'Blockchain Education',
+    icon: 'verified_user',
   ),
-  Service(
-    id: '14',
-    name: 'Business Intelligence Reporting',
-    shortDescription: 'Business Intelligence reporting services',
-    category: 'Business Advisory Services',
-    icon: 'analytics',
-  ),
-  Service(
-    id: '15',
-    name: 'Foreign Interest Representation',
-    shortDescription: 'Representation of Foreign Interests in Local companies',
-    category: 'Business Advisory Services',
-    icon: 'public',
-  ),
+];
+
+/// Combined services list for backward compatibility
+final List<Service> servicesData = [
+  ...investmentAdvisoryServices,
+  ...blockchainEducationServices,
 ];
 

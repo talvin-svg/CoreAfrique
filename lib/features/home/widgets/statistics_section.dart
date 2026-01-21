@@ -20,8 +20,8 @@ class StatisticsSection extends StatelessWidget {
         children: [
           const SizedBox(height: AppDimensions.spacingXXL),
           const SectionTitle(
-            title: 'Our Impact',
-            subtitle: 'Numbers that speak for themselves',
+            title: 'Why CAI',
+            subtitle: 'Trusted partner for Africa\'s digital economy',
             textAlign: TextAlign.center,
             crossAxisAlignment: CrossAxisAlignment.center,
           ),
@@ -39,50 +39,68 @@ class StatisticsSection extends StatelessWidget {
     return Column(
       children: [
         StatCard(
-          value: '${teamData.length}',
-          label: 'Team Members',
-          icon: Icons.people,
+          value: 'Regulatory-Aware',
+          label: 'Built around Ghana\'s VASP framework',
+          icon: Icons.verified_user,
         ),
         const SizedBox(height: AppDimensions.spacingLG),
         StatCard(
-          value: '${servicesData.length}',
-          label: 'Services Offered',
-          icon: Icons.business_center,
+          value: '8+',
+          label: 'Years of Blockchain Experience',
+          icon: Icons.currency_bitcoin,
         ),
         const SizedBox(height: AppDimensions.spacingLG),
         StatCard(
-          value: '15+',
-          label: 'Years Experience',
-          icon: Icons.calendar_today,
+          value: 'NaVALI',
+          label: 'Knowledge Partner',
+          icon: Icons.school,
+        ),
+        const SizedBox(height: AppDimensions.spacingLG),
+        StatCard(
+          value: 'Local + Global',
+          label: 'African markets, international standards',
+          icon: Icons.public,
         ),
       ],
     );
   }
 
   Widget _buildWideLayout(BuildContext context) {
-    return Row(
+    return Wrap(
+      spacing: AppDimensions.spacingLG,
+      runSpacing: AppDimensions.spacingLG,
+      alignment: WrapAlignment.center,
       children: [
-        Expanded(
+        SizedBox(
+          width: context.isMedium ? 250 : 280,
           child: StatCard(
-            value: '${teamData.length}',
-            label: 'Team Members',
-            icon: Icons.people,
+            value: 'Regulatory-Aware',
+            label: 'Built around Ghana\'s VASP framework',
+            icon: Icons.verified_user,
           ),
         ),
-        const SizedBox(width: AppDimensions.spacingLG),
-        Expanded(
+        SizedBox(
+          width: context.isMedium ? 250 : 280,
           child: StatCard(
-            value: '${servicesData.length}',
-            label: 'Services Offered',
-            icon: Icons.business_center,
+            value: '8+',
+            label: 'Years of Blockchain Experience',
+            icon: Icons.currency_bitcoin,
           ),
         ),
-        const SizedBox(width: AppDimensions.spacingLG),
-        Expanded(
+        SizedBox(
+          width: context.isMedium ? 250 : 280,
           child: StatCard(
-            value: '15+',
-            label: 'Years Experience',
-            icon: Icons.calendar_today,
+            value: 'NaVALI',
+            label: 'Knowledge Partner',
+            icon: Icons.school,
+          ),
+        ),
+        SizedBox(
+          width: context.isMedium ? 250 : 280,
+          child: StatCard(
+            value: 'Local + Global',
+            label: 'African markets, international standards',
+            icon: Icons.public,
           ),
         ),
       ],
